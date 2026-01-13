@@ -1,0 +1,187 @@
+
+	#Data_Model
+Customer Churn & Retention Intelligence System - CCRIS
+
+_______________Purpose of the Data Model____________
+
+This data model is designed to directly support the core business goal of the project:
+
+To identify who is likely to leave, understand why they leave, and enable targeted retention actions that protect revenue and increase customer lifetime value.
+
+The model focuses on capturing customer identity, transactional behavior, time-based activity, and revenue signals in a way that makes churn measurable and explainable using SQL.
+
+Every table exists because it answers at least one business question.  
+If a table does not support a question, it does not belong here.
+
+
+___________ Business Logic Translation____________
+
+Before defining tables, the business questions are translated into measurable concepts.
+
+- #Churn: A customer is considered churned if they have made no purchases in the last 90 days.
+- #Active: A customer who has made a purchase within the last 30 days.
+- #At Risk: A customer inactive for 31–89 days.
+- #Revenue: Total monetary value generated from completed purchases.
+- #Retention: A customer who was active in the previous month and remains active in the current month.
+
+These definitions guide the schema design and ensure consistency across all analyses.
+
+
+
+	_____________Core Entities and Tables___________________
+
+	# 1. Customers Table
+
+#Purpose:
+Stores customer identity and lifecycle entry point.
+
+This table answers:
+- Who the customers are
+- When they joined
+- How customers are uniquely identified across the system
+
+#Key Fields:
+- customer_id (primary key)
+- full_name
+- email
+- signup_date
+- status
+
+#Business Questions Supported:
+- Who has churned, who is active, who is at risk
+- Retention and churn segmentation
+
+
+	# 2. Orders Table
+
+#Purpose
+Captures purchase events and customer activity over time.
+
+This is the primary table used to define churn, retention, and activity timelines.
+
+#Key Fields:
+- order_id (primary key)
+- customer_id (foreign key)
+- order_date
+- order_status
+- order_amount
+
+#Business Questions Supported:
+- Churn definition based on last purchase date
+- Monthly churn rate calculation
+- Retention rate month over month
+- Activity trends over time
+
+
+	#3. Payments Table
+
+#Purpose:
+Tracks actual revenue generated from orders.
+
+Separating payments from orders allows accurate revenue calculations and avoids counting failed or pending transactions.
+
+#Key Fields:
+- payment_id (primary key)
+- order_id (foreign key)
+- payment_date
+- payment_amount
+- payment_status
+
+#Business Questions Supported:
+- Which customers generate the most revenue
+- Lifetime value (LTV) computation
+- Revenue at risk due to churn
+
+
+
+	# 4. Customer Revenue Summary (Derived)
+
+#Purpose:
+Provides aggregated revenue metrics per customer.
+
+This is not a physical table initially, but a derived dataset created using SQL views or queries.
+
+#Metrics Derived:
+- Total lifetime revenue per customer
+- Average order value
+- Number of completed purchases
+
+#Business Questions Supported:
+- High-value customer identification
+- Revenue impact of churn
+- Prioritization of retention efforts
+
+
+	# 5. Customer Activity Metrics (Derived)
+
+#Purpose:
+Creates time-based behavioral signals needed for churn and retention analysis.
+
+Derived metrics include:
+- Last purchase date
+- Days since last purchase
+- Monthly purchase frequency
+
+#Business Questions Supported:
+- Who has churned, who is active, who is at risk
+- Monthly churn trends
+- Retention tracking
+
+
+
+# Relationships Between Tables:
+
+- One customer can have many orders  
+- One order can have one or many payment records  
+- Revenue is calculated from successful payments  
+- Churn and retention are inferred from order dates, not customer status flags  
+
+This relational structure ensures flexibility and prevents hard-coded assumptions about customer behavior.
+
+
+	# How the Data Model Supports Each Business Question
+
+-> Question 1  
+Who has churned, who is active, and who is at risk?
+
+- Derived from customers joined with orders
+- Based on last purchase date and inactivity duration
+
+
+-> Question 2  
+What is the monthly churn rate and trend?
+
+- Orders table provides monthly activity counts
+- Customer absence in subsequent months signals churn
+
+
+-> Question 3  
+Which customers generate the most revenue and how does churn affect revenue?
+
+- Payments aggregated per customer calculate LTV
+- Churned customers with high LTV indicate revenue at risk
+
+
+-> Question 4  
+Which high-value customers are at highest risk of churn?
+
+- Combine revenue summaries with inactivity metrics
+- Enables prioritized retention targeting
+
+
+-> Question 5  
+What is the retention rate month over month?
+
+- Identify customers active in consecutive months
+- Track retention improvements over time
+
+
+
+	->Design Principles
+
+- Time is treated as a first-class dimension
+- Churn is behavior-based, not manually labeled
+- Revenue calculations rely on completed payments only
+- Derived metrics are created through SQL views, not stored redundantly
+
+
