@@ -1,7 +1,7 @@
 ____Customer Churn & Retention Intelliegence System_____
 
 _____Project Purpose______ ->
-
+Who is likely to leave, and why?
 Understand why customers leave and identify those at risk, to enable targeted retention efforts that protect revenue and increase lifetime customer value.
 
 
