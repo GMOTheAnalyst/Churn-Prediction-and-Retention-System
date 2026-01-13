@@ -38,8 +38,3 @@ Understand why customers leave and identify those at risk, to enable targeted re
 - Identifying at-risk customers allows for targeted retention campaigns.
 - High-value customers at risk of churn need prioritized attention.
 
-
-________Next Phase_______ ->
-- Build a data model that supports these questions.  
-- Implement SQL queries to extract and analyze customer behavior.  
-- Develop churn risk scoring to prioritize outreach.
