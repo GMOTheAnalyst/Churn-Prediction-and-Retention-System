@@ -1,0 +1,115 @@
+==========Retention_and_Revenue_Analysis ============
+Customer Churn & Retention Intelligence System
+
+## Purpose of This Phase
+
+This phase moves the system from #classification to impact#.
+
+After identifying which customers are active, at risk, or churned, the next step is to understand:
+	-> How well the business is retaining customers over time
+	-> How churn and risk translate into revenue loss or protection opportunities
+
+This phase answers two critical questions:
+
+	* What is the retention rate month over month?
+	* How much revenue is at risk due to churn or inactivity?
+
+
+	*********Key Objectives****
+
+The retention and revenue analysis focuses on:
+
+	-> Measuring customer retention over time
+	->Identifying trends and changes in retention performance
+	->Quantifying the financial impact of churn
+	->Highlighting high-value customers who require immediate retention action
+
+This ensures that churn analysis leads to #prioritized business decisions#, not just statistics.
+
+
+	## Retention Analysis Logic
+
+ #Retention:
+A customer is considered #retained if they:
+	->Were active in a previous month, and
+	->Are also active in the current month
+
+Retention is measured on a #month-over-month basis# to detect changes in customer behavior over time.
+
+	### Metrics Produced
+
+	->Number of active customers per month
+	->Number of retained customers per month
+	->Month-over-month retention rate
+	->Retention trend over time
+
+These metrics reveal whether retention strategies are improving or declining.
+
+	## Revenue Impact Analysis Logic
+
+Revenue at Risk:
+Revenue at risk represents the potential financial loss if:
+	->At-risk customers churn
+	-> Churned customers do not return
+
+This analysis combines:
+	-> Customer lifetime value
+	->Churn status
+	->Recent activity patterns
+
+### Metrics Produced
+
+	->Total lifetime revenue per customer
+	->Revenue contributed by churned customers
+	->Revenue contributed by at-risk customers
+	->Percentage of total revenue at risk
+
+This allows the business to see churn not just as customer loss, but as #measurable financial exposure#.
+
+
+	## High-Value Customer Prioritization
+
+This phase also identifies:
+	->High-value customers
+	->With long inactivity periods
+	->Who have not yet fully churned
+
+These customers represent the #highest return on retention efforts#.
+
+By ranking customers by revenue and inactivity, retention teams can focus on actions that maximize impact.
+
+
+	## Data Sources Used
+
+This analysis relies on previously created components:
+	->Customer metrics views
+	->Churn classification results
+	->Monthly activity summaries
+	->Lifetime value calculations
+
+No raw tables are queried directly.  
+All logic builds on standardized, reusable views.
+
+
+	## Output of This Phase
+
+retention_and_revenue_analysis.sql which is suitable for dashboards, reports, or executive summaries: 
+	->Monthly retention metrics
+	->Revenue at risk summaries
+	->Ranked lists of high-value at-risk customers
+	->Trend-ready datasets for reporting or visualization
+
+
+	## Why This Phase Matters
+
+Retention and revenue analysis is where analytics becomes strategy.
+
+Without retention and revenue analysis
+	->Churn insights remain abstract
+	->Revenue risk stays hidden
+	->Retention efforts lack prioritization
+
+With retention and revenue analysis:
+	->Business decisions are guided by data
+	->Resources are focused on high-impact customers
+	->Retention performance can be measured and improv
